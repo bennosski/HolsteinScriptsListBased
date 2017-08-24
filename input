@@ -1,0 +1,62 @@
+Norb 1  # number of orbitals per unit cell
+
+Nx   8  # geometry X
+Ny   8  # geometry Y
+
+
+# Consider four unit cells a, b, c, d
+#  c    d
+#  |\  /
+#  | \/
+#  | /\
+#  |/  \
+#  a----b
+
+t_ab    0,0,1.0  # this means t = 1.0 from orbital 0 of a to orbital 0 of b
+t_ac    0,0,1.0
+
+# uncomment for next nearest neighbor hopping
+#t_ad    0,0,-0.25
+#t_bc    0,0,-0.25
+
+U        0    # Hubbard U
+eps      0    # orbital-dependent site energy
+mu      -16.00  # chemical potential
+
+dt       0.1  # imag. time step size
+L        200   # total number of imag. time steps. beta = L*dt
+neqlt    200    # number of imag. time steps between equal time measurements.
+              # note: if neqlt > L, no equal time measurements will be done
+nuneqlt  200   # number of sweeps between unequal time measurements; 0 to disable. Was 8 by default.
+
+prodBlen 8    # number of B matrices to multiply before QR stuff
+nwraps   8    # number of "wraps" before recomputing G from scratch
+
+nequil   100000 # number of warmup/equilibration sweeps
+nsampl   100000 # number of measurement/sampling sweeps
+
+
+use_phonons  true
+phonon_omega 1.0
+
+# H_{el-ph} = sum_{r,s} n_r g(r-s) X_s
+#           = sum_r n_r sum_q exp(iqr) g(q) X_q
+#     where X_q = 1/sqrt(Nx*Ny) sum_r exp(-iqr) X_r
+#     and  g(q) = 1/sqrt(Nx*Ny) sum_r exp(-iqr) g(r)
+
+# g(q) = phonon_g * exp(-abs(q/phonon_q0)) for q_x and q_y in [-0.5,0.5) r.l.u.
+# for example, use a large phonon_q0 to approximate Holstein:
+#      g(q) = phonon_g * 1
+#      g(r) = 1/sqrt(Nx*Ny) sum_r exp(iqr) g(q)
+#           = sqrt(Nx*Ny) phonon_g    for r == 0
+#             0                       for r != 0
+# 
+#  phonon_g = forward_phonon_g * sqrt(Nx*Ny)
+
+phonon_g  4.0      # phonon coupling
+
+
+phonon_local_box_width 2.0  # = 2 * maximum update step size for normal updates
+phonon_n_local_updates 16   # number of normal (local in imag. time) updates in a time step
+phonon_block_box_width 7.0  # above for block updates
+phonon_n_block_updates 8    # number of block updates per spacetime sweep

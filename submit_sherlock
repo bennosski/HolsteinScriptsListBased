@@ -1,0 +1,16 @@
+#!/bin/bash
+#SBATCH --job-name=dqmc
+#SBATCH --array=1-5
+#SBATCH --open-mode=append
+#SBATCH --time=$3:00:00
+#SBATCH --constraint="2.60GHz"
+#SBATCH --partition=iric
+#SBATCH --qos=iric
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+module load intel/2016.u1
+
+echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+echo "^^^^^^^start: `date`"
+srun --ntasks=1 --cpus-per-task=1 ./hubbard_dqmc $1 $2
+echo "^^^^^^^end: `date`"
