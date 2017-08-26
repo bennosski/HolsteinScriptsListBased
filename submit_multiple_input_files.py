@@ -10,7 +10,7 @@ def bash_command(cmd):
 #existing_files = os.listdir('outputfiles1/')
 submit_ct = 0
 
-
+    
 #last_submitted = [0,0,0]
 #last_submitted = loadtxt('last_submitted')
 #print 'last_submitted ',last_submitted

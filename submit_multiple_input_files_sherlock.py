@@ -26,7 +26,7 @@ def get_ijk(c):
 
 
 
-y = raw_input('confirm: all temp? \n  and did you create submit scripts \n COPY THIS FILE TO BIN DIRECTORY! (y/n)')
+y = raw_input('confirm: all temp? \n  and did you create submit scripts \n did you move me to BIN directory? (y/n)')
 if y!='y':
     1/0
 
@@ -51,29 +51,23 @@ for i, blist in enumerate(mu_map):
                 #print output_folder_name+'len ',len(files)
                 if len(files)<50:
                     print output_folder_name+' len ',len(files),' submitting'
-                else:
+
+                    '''    
+                    if j>1:
                     continue
+                    '''
+
+                    print('submitting ',label)
+                    
+                    bash_command('sbatch submit_sherlock%d'%j + ' ' + input_file_name+' '+output_folder_name)
+                    
+                    submit_ct += 1
+            
+                    time.sleep(0.05)
+
+    
             
      
-            '''    
-            if j>1:
-                continue
-            '''
-
-            #if os.path.exists(output_folder_name):
-            #    continue
-
-            
-            print('submitting ',label)
-            
-            bash_command('sbatch submit_sherlock%d'%j + ' ' + input_file_name+' '+output_folder_name)
-
-            submit_ct += 1
-            
-            #last_submitted = [i,j,k]
-            #savetxt('last_submitted', last_submitted)
-            
-            time.sleep(0.05)
 
 
 print(submit_ct)
