@@ -1,0 +1,20 @@
+#!/bin/bash
+
+LSB_JOB_REPORT_MAIL=N
+
+. intel.sh
+bsub -J "l0p4[1-5]" -q simesq -n 1 -o out -e err ./hubbard_dqmc $1 $2
+
+
+#bsub -a mympi -q simesgpuq -n 32 -o log -e err ./keldysh_migdal.out
+#bsub -a mympi -q simesq -n 32 -R "select[hname!=simes0108]" -o log -e err ./keldysh_langreth_bcs_tti.out
+
+#bsub -a mympi -q simesgpuq -n 8 -o log -e err ./keldysh_langreth_bcs_tti_cond.out
+
+#bsub -a mympi -q simesgpuq -n 200 -R "select[hname!=simes0108]" -o log -e err ./keldysh_langreth_bcs4.out
+
+#bsub -a mympi -q simesq -n 2 -R "span[ptile=2]" -R "rusage[mem=20000]" -o log -e err ./keldysh_langreth_bcs4.out
+
+
+#bsub -a mympi -q simesgpuq -n 32 -o log -e err ./keldysh_bcs.out
+#bsub -a mympi -q simesq -n 200 -R "span[ptile=4]" -o log -e err ./keldysh_bcs.out

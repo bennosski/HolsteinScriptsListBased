@@ -20,34 +20,15 @@ submit_ct = 0
 skip = False
 
 
-mu_map = load('../mu_map.npy')
-[d1,d2,d3] = shape(mu_map)
+mu_map = load('mu_map.npy')
 
+y = raw_input('confirm: did you copy multiple submit to bin directory? (y/n)')
+if y!='y':
+    1/0
 
-def get_count(i,j,k):
-    return i*d2*d3 + j*d3 + k
-
-def get_ijk(c):
-    i = c/(d2*d3)
-    
-    r = c%(d2*d3)
-    j = r/d3
-
-    k = (c%(d2*d3))%d3
-
-    return i,j,k
-
-
-#start = get_count(9,9,9)+1
-#end = get_count(5,10,0)
-
-#start = get_count(5,5,10)+1
-start = get_count(0,0,0)
-end = get_count(d1-1,d2-1,d3-1)+1
-
-for count in range(start, end):
-
-            [i,j,k] = get_ijk(count)            
+for i,blist in enumerate(mu_map):
+    for j,mulist in enumerate(blist):
+        for k,mu in enumerate(mulist):
 
             
             label = '_%d'%i+'_%d'%j+'_%d'%k
@@ -73,7 +54,8 @@ for count in range(start, end):
 
             print 'submitting ',label
             
-            bash_command('./multiple_submit '+input_file_name+' '+output_folder_name)
+            #bash_command('./multiple_submit '+input_file_name+' '+output_folder_name)
+            
             
             submit_ct += 1
             

@@ -27,13 +27,13 @@ dt       0.1  # imag. time step size
 L        200   # total number of imag. time steps. beta = L*dt
 neqlt    200    # number of imag. time steps between equal time measurements.
               # note: if neqlt > L, no equal time measurements will be done
-nuneqlt  200   # number of sweeps between unequal time measurements; 0 to disable. Was 8 by default.
+nuneqlt  0   # number of sweeps between unequal time measurements; 0 to disable. Was 8 by default.
 
 prodBlen 8    # number of B matrices to multiply before QR stuff
 nwraps   8    # number of "wraps" before recomputing G from scratch
 
-nequil   100000 # number of warmup/equilibration sweeps
-nsampl   100000 # number of measurement/sampling sweeps
+nequil   2000 # number of warmup/equilibration sweeps
+nsampl   2000 # number of measurement/sampling sweeps
 
 
 use_phonons  true
