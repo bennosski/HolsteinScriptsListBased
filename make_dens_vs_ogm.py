@@ -2,12 +2,15 @@ import sys, os
 from numpy import *
 
 #folder = sys.argv[1]
-
 #dirpath = load('dirpath_output.npy')
 #dirpath = 'outputfiles2/'
 
 dirpath = sys.argv[1]
 folders = os.listdir(dirpath)
+
+
+if not os.path.exists('../results'):
+  os.makedirs('../results')
 
 omegas = load('../omegas.npy')
 save('../results/omegas.npy', omegas)
@@ -20,30 +23,28 @@ save('../results/mu_map.npy', mu_map)
 print shape(mu_map)
 
 
-dens_ogm = zeros(shape(mu_map))
-dens_ogm_std = zeros(shape(mu_map))
+dens_ogm = []
+dens_ogm_std = []
 
-for folder in folders:
 
-  [i1,i2,i3] = [pos for pos,char in enumerate(folder) if char=='_']
+for i,blist in enumerate(mu_map):
+  dens_ogm.append([])
+  dens_ogm_std.append([])
+  for j,mulist in enumerate(blist):
+    dens_ogm[i].append([])
+    dens_ogm_std[i].append([])
+    for k,mu in enumerate(mulist):
 
-  i = int(folder[i1+1:i2])
-  j = int(folder[i2+1:i3])
-  k = int(folder[i3+1:])
+      folder = 'output_%d'%i+'_%d'%j+'_%d'%k
 
-  files = os.listdir(dirpath+folder)
+      files = os.listdir(dirpath+folder)
 
-  dens = []
-  #print i,j,k
-
-  #if i=='0' and j=='7' and k=='7':
-  #  print 'ahh'
-  #  continue
-  
-  for myfile in files:
-
-      if '.log' in myfile:
-         with open(dirpath+folder+'/'+myfile,'r') as f:
+      dens = []
+ 
+      for myfile in files:
+        
+        if '.log' in myfile:
+          with open(dirpath+folder+'/'+myfile,'r') as f:
             
             filestr = f.read()
             index = filestr.find('total density')
@@ -61,12 +62,12 @@ for folder in folders:
               #print myfile
 
 
-  dens = asarray(dens)
-  if len(dens)<5:
-    print i,j,k," warning len(dens) ",len(dens)
+      dens = asarray(dens)
+      if len(dens)<5:
+        print i,j,k," warning len(dens) ",len(dens)
 
-  dens_ogm[i,j,k]     = mean(dens)
-  dens_ogm_std[i,j,k] = std(dens)
+      dens_ogm[i][j].append(mean(dens))
+      dens_ogm_std[i][j].append(std(dens))
 
 
 print 'saving files'

@@ -30,6 +30,9 @@ def myreplace(key, rep, label):
     mystr += """; sed "/""" + key + "/c\\" + rep + "\" temp1" + label + ' > temp2' + label 
     return mystr
 
+y = raw_input('nuneqult = 0!!!!!!!! (y/n)?')
+if y!='y':
+    1/0
 
 for i,blist in enumerate(mu_map):
 #for i in range(2):
@@ -55,7 +58,9 @@ for i,blist in enumerate(mu_map):
                 prodBlen = 8
 
             neqlt   =  L
-            nuneqlt = L
+
+            
+            nuneqlt = 0
             #nuneqlt = 1
 
             label = '_%d'%i+'_%d'%j+'_%d'%k

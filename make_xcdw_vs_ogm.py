@@ -12,10 +12,12 @@ Nm = sqrt(N)/2+1
 folders = os.listdir(dirpath)
 
 dens = load('../results/dens_ogm.npy')
-[d1,d2,d3] = shape(dens)
+#[d1,d2,d3] = shape(dens)
 
-x_ogm     = zeros([Nm,Nm,d1,d2,d3])
-x_ogm_std = zeros([Nm,Nm,d1,d2,d3])
+#x_ogm     = zeros([Nm,Nm,d1,d2,d3])
+#x_ogm_std = zeros([Nm,Nm,d1,d2,d3])
+x_ogm = []
+x_ogm_std = []
 
 betas = load('../betas.npy')
 
@@ -203,34 +205,28 @@ def get_xcdw_full(folder, myfiles, beta, N):
      return real(Xmom[:Nk/2+1,:Nk/2+1]), real(sqrt(Xmom_std[:Nk/2+1,:Nk/2+1]))
      '''
 
+for i,blist in enumerate(dens):
+  x_ogm.append([])
+  x_ogm_std.append([])
+  for j,mulist in enumerate(blist):
+    x_ogm[i].append([])
+    x_ogm_std[i].append([])
+    for k,mu in enumerate(mulist):
+      folder = 'output_%d'%i+'_%d'%j+'_%d'%k
 
-
-for folder in folders:
-
-  [i1,i2,i3] = [pos for pos,char in enumerate(folder) if char=='_']
-
-  i = int(folder[i1+1:i2])
-  j = int(folder[i2+1:i3])
-  k = int(folder[i3+1:])
-
-   
-  #if i=='0' and j=='7' and k=='7':
-  #  print 'ahh'
-  #  continue
-
-  print(folder)
-  files = os.listdir(dirpath+folder)
+      print(folder)
+      files = os.listdir(dirpath+folder)
   
-  #x, xstd = get_xsc(folder,files, beta, N, dens[i,j,k])
-  x, xstd = get_xcdw_full(folder,files,betas[j],N)
-  #print 'x, xstd',x,xstd
+      #x, xstd = get_xsc(folder,files, beta, N, dens[i,j,k])
+      x, xstd = get_xcdw_full(folder,files,betas[j],N)
+      #print 'x, xstd',x,xstd
  
-  #x, xstd = get_xcdw2(folder,files,beta,N)
-  #print 'x, xstd',x,xstd
-  #1./0
+      #x, xstd = get_xcdw2(folder,files,beta,N)
+      #print 'x, xstd',x,xstd
+      #1./0
 
-  x_ogm[:,:,i,j,k]     = x
-  x_ogm_std[:,:,i,j,k] = xstd
+      x_ogm[i][j].append(x)
+      x_ogm_std[i][j].append(xstd)
 
 
 print('saving files')

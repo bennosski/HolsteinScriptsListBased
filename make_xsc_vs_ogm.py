@@ -12,8 +12,8 @@ folders = os.listdir(dirpath)
 dens = load('../results/dens_ogm.npy')
 betas = load('../betas.npy')
 
-x_ogm     = zeros(shape(dens))
-x_ogm_std = zeros(shape(dens))
+x_ogm     = []
+x_ogm_std = []
 
 N = load('../N.npy')
 
@@ -118,52 +118,22 @@ def get_xsc_phil(folder, myfiles, beta, N, density):
      '''
 
 
+for i,blist in enumerate(dens):
+  x_ogm.append([])
+  x_ogm_std.append([])
+  for j,mulist in enumerate(blist):
+    x_ogm[i].append([])
+    x_ogm_std[i].append([])
+    for k,mu in enumerate(mulist):
+      folder = 'output_%d'%i+'_%d'%j+'_%d'%k
 
-for folder in folders:
+      print folder
+      files = os.listdir(dirpath+folder)
 
-  [i1,i2,i3] = [pos for pos,char in enumerate(folder) if char=='_']
-
-  i = int(folder[i1+1:i2])
-  j = int(folder[i2+1:i3])
-  k = int(folder[i3+1:])
-
-  #print i,j,k
-
-
-  #if i=='0' and j=='7' and k=='7':
-  #  print 'ahh'
-  #  continue
-
-  print folder
-  files = os.listdir(dirpath+folder)
-
-  '''
-  for myfile in files:
-    if ".log" in myfile:
-      with open(folders[0]+myfile, 'r') as f:
-        for line in f:
-          if "lattice dimension:" in line:
-            index1 = line.index(":")+1
-            index2 = line.index("x")
-            Nk = int(float(line[index1:index2]))
-            N = Nk**2
-          if "beta:" in line:
-            index1 = line.index(":")+1
-            beta = float(line[index1:])
-            break
-      break
-  '''
-
-
-
-  #print shape(betas)
-  #print shape(dens)
+      x, xstd = get_xsc(folder,files, betas[j], N, dens[i][j][k])
   
-
-  x, xstd = get_xsc(folder,files, betas[j], N, dens[i,j,k])
-  
-  x_ogm[i,j,k]     = x
-  x_ogm_std[i,j,k] = xstd
+      x_ogm[i][j].append(x)
+      x_ogm_std[i][j].append(xstd)
 
 
 print 'saving files'
