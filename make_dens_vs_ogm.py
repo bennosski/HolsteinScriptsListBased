@@ -62,7 +62,6 @@ for i,blist in enumerate(mu_map):
               #print myfile
 
 
-      dens = asarray(dens)
       if len(dens)<5:
         print i,j,k," warning len(dens) ",len(dens)
 

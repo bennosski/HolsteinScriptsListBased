@@ -9,7 +9,7 @@
 #to pull the newest version of git from the online repository:
     git fetch origin master
     git reset --hard FETCH_HEAD
-
+    git pull  ?? if needed
 
 
 #how to prepare jobs on sherlock

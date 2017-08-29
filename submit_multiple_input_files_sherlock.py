@@ -11,6 +11,8 @@ skip = False
 
 mu_map = load('mu_map.npy')
 
+bash_command('cp HolsteinScriptsListBased/make_mu_map.py .')
+
 def get_count(i,j,k):
     return i*d2*d3 + j*d3 + k
 
@@ -26,7 +28,7 @@ def get_ijk(c):
 
 
 
-y = raw_input('confirm: all temp? \n  and did you create submit scripts \n did you move me to BIN directory? (y/n)')
+y = raw_input('confirm: all temp? \n  and did you create submit scripts \n  DID YOU RUN MAKE MU_MAP AGAIN? (y/n)')
 if y!='y':
     1/0
 
@@ -36,6 +38,7 @@ if y!='y':
 for i, blist in enumerate(mu_map):
     for j, mulist in enumerate(blist):
         for k, mu in enumerate(mulist):
+
 
             #if j!=6:
             #    continue
@@ -49,7 +52,7 @@ for i, blist in enumerate(mu_map):
                 #files = glob.glob(output_folder_name+'/*Gtau0_u.dat')
                 files = glob.glob(output_folder_name+'/*')
                 #print output_folder_name+'len ',len(files)
-                if len(files)<50:
+                if len(files)<250:
                     print output_folder_name+' len ',len(files),' submitting'
 
                     '''    
