@@ -177,7 +177,9 @@ def get_xcdw_full(folder, myfiles, beta, N):
 
      # now do Fourier transform
 
-     return mean(xs, axis=0), std(xs, axis=0)
+     error = std(xs, axis=0, ddof=1)/sqrt(shape(xs)[0])
+
+     return mean(xs, axis=0), error
 
      '''
      cs = xs.copy()

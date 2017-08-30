@@ -65,9 +65,11 @@ for i,blist in enumerate(mu_map):
         dens = [0]
 
       #print mean(dens), std(dens)
+
+      error = std(dens, ddof=1)/sqrt(len(dens))
   
       dens_ogm[i][j].append(mean(dens))
-      dens_ogm_std[i][j].append(std(dens))
+      dens_ogm_std[i][j].append(error)
 
 #print 'saving files'
 #save('../results/dens_ogm', dens_ogm)
