@@ -4,10 +4,9 @@ from numpy import *
 #folder = sys.argv[1]
 #dirpath = load('dirpath_output.npy')
 #dirpath = 'outputfiles2/'
-
+      
 dirpath = sys.argv[1]
 folders = os.listdir(dirpath)
-
 
 if not os.path.exists('../results'):
   os.makedirs('../results')
@@ -22,10 +21,8 @@ mu_map = load('../mu_map.npy')
 save('../results/mu_map.npy', mu_map)
 print shape(mu_map)
 
-
 dens_ogm = []
 dens_ogm_std = []
-
 
 for i,blist in enumerate(mu_map):
   dens_ogm.append([])
@@ -60,15 +57,25 @@ for i,blist in enumerate(mu_map):
               #print 'error ',i,j,k
               #print filestr
               #print myfile
-
-
+              
       if len(dens)<5:
         print i,j,k," warning len(dens) ",len(dens)
 
+      if len(dens)==0: 
+        dens = [0]
+
+      #print mean(dens), std(dens)
+  
       dens_ogm[i][j].append(mean(dens))
       dens_ogm_std[i][j].append(std(dens))
 
+#print 'saving files'
+#save('../results/dens_ogm', dens_ogm)
+#save('../results/dens_ogm_std', dens_ogm_std)
 
 print 'saving files'
+
 save('../results/dens_ogm', dens_ogm)
 save('../results/dens_ogm_std', dens_ogm_std)
+
+

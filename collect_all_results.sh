@@ -2,6 +2,8 @@
 echo "running all python scripts"
 echo "for directory: "$1
 
+echo "load python 2.7.5 on sherlock (for saving list with numpy save)"
+
 echo "check the mu map"
 read input
 
