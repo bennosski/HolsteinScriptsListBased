@@ -23,13 +23,16 @@ print shape(mu_map)
 
 dens_ogm = []
 dens_ogm_std = []
+mu_map_nonempty = []
 
 for i,blist in enumerate(mu_map):
   dens_ogm.append([])
   dens_ogm_std.append([])
+  mu_map_nonempty.append([])
   for j,mulist in enumerate(blist):
     dens_ogm[i].append([])
     dens_ogm_std[i].append([])
+    mu_map_nonempty[i].append([])
     for k,mu in enumerate(mulist):
 
       folder = 'output_%d'%i+'_%d'%j+'_%d'%k
@@ -61,15 +64,16 @@ for i,blist in enumerate(mu_map):
       if len(dens)<5:
         print i,j,k," warning len(dens) ",len(dens)
 
-      if len(dens)==0: 
-        dens = [0]
 
-      #print mean(dens), std(dens)
 
-      error = std(dens, ddof=1)/sqrt(len(dens))
+      if len(dens)>0:
+        error = std(dens, ddof=1)/sqrt(len(dens))
   
-      dens_ogm[i][j].append(mean(dens))
-      dens_ogm_std[i][j].append(error)
+        dens_ogm[i][j].append(mean(dens))
+        dens_ogm_std[i][j].append(error)
+        mu_map_nonempty[i][j].append(mu)
+        #print mean(dens), std(dens)
+
 
 #print 'saving files'
 #save('../results/dens_ogm', dens_ogm)
@@ -79,5 +83,5 @@ print 'saving files'
 
 save('../results/dens_ogm', dens_ogm)
 save('../results/dens_ogm_std', dens_ogm_std)
-
+save('../results/mu_map', mu_map_nonempty)
 

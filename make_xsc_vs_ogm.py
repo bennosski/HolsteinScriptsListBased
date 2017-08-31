@@ -39,7 +39,7 @@ def get_xsc(folder, myfiles, beta, N, density):
 
      if xtaus == []:
           print 'missing data'
-          return 0,0          
+          return None,None
           
      xtaus = asarray(xtaus)
      xtau_avg = mean(xtaus, axis=0)
@@ -116,8 +116,7 @@ def get_xsc_phil(folder, myfiles, beta, N, density):
     
      return xsc, xsc_std
      '''
-
-
+     
 for i,blist in enumerate(dens):
   x_ogm.append([])
   x_ogm_std.append([])
@@ -131,7 +130,7 @@ for i,blist in enumerate(dens):
       files = os.listdir(dirpath+folder)
 
       x, xstd = get_xsc(folder,files, betas[j], N, dens[i][j][k])
-  
+
       x_ogm[i][j].append(x)
       x_ogm_std[i][j].append(xstd)
 
