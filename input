@@ -12,8 +12,8 @@ Ny   8  # geometry Y
 #  |/  \
 #  a----b
 
-t_ab    0,0,0.2  # this means t = 1.0 from orbital 0 of a to orbital 0 of b
-t_ac    0,0,0.2
+t_ab    0,0,1.0  # this means t = 1.0 from orbital 0 of a to orbital 0 of b
+t_ac    0,0,1.0
 
 # uncomment for next nearest neighbor hopping
 #t_ad    0,0,-0.25
@@ -32,8 +32,8 @@ nuneqlt  0   # number of sweeps between unequal time measurements; 0 to disable.
 prodBlen 8    # number of B matrices to multiply before QR stuff
 nwraps   8    # number of "wraps" before recomputing G from scratch
 
-nequil   20000 # number of warmup/equilibration sweeps
-nsampl   100000 # number of measurement/sampling sweeps
+nequil   2000 # number of warmup/equilibration sweeps
+nsampl   2000 # number of measurement/sampling sweeps
 
 
 use_phonons  true
