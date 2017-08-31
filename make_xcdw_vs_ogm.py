@@ -171,7 +171,8 @@ def get_xcdw_full(folder, myfiles, beta, N):
           x = np.einsum('ijk,k->ij', x_mat, weights) * beta/L
           
           #xs[ct,:,:] = x
-          xs[ct,:,:] = real(fft.fft2(x)[Nk/2::-1,Nk/2::-1])
+          #xs[ct,:,:] = real(fft.fft2(x)[Nk/2::-1,Nk/2::-1])
+          xs[ct,:,:] = real(fft.fft2(x)[:Nk/2+1,:Nk/2+1])
 
           ct += 1
 
