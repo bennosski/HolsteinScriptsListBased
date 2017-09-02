@@ -60,8 +60,8 @@ for i,blist in enumerate(mu_map):
             neqlt   =  L
 
             
-            #nuneqlt = L
-            nuneqlt = 0
+            nuneqlt = L
+            #nuneqlt = 0
 
             label = '_%d'%i+'_%d'%j+'_%d'%k
             

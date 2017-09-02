@@ -32,8 +32,8 @@ nuneqlt  0   # number of sweeps between unequal time measurements; 0 to disable.
 prodBlen 8    # number of B matrices to multiply before QR stuff
 nwraps   8    # number of "wraps" before recomputing G from scratch
 
-nequil   2000 # number of warmup/equilibration sweeps
-nsampl   2000 # number of measurement/sampling sweeps
+nequil   100000 # number of warmup/equilibration sweeps
+nsampl   100000 # number of measurement/sampling sweeps
 
 
 use_phonons  true
