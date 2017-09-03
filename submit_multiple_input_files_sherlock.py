@@ -39,7 +39,8 @@ for i, blist in enumerate(mu_map):
     for j, mulist in enumerate(blist):
         for k, mu in enumerate(mulist):
 
-
+            print i, j, k
+            
             #if j!=6:
             #    continue
             
@@ -47,30 +48,30 @@ for i, blist in enumerate(mu_map):
                         
             input_file_name = sys.argv[1]+'input'+label
             output_folder_name = sys.argv[2]+'output'+label
-            
+
+            runjob = False
             if os.path.exists(output_folder_name):
                 #files = glob.glob(output_folder_name+'/*Gtau0_u.dat')
                 files = glob.glob(output_folder_name+'/*')
                 #print output_folder_name+'len ',len(files)
                 if len(files)<250:
+                    runjob = True
                     print output_folder_name+' len ',len(files),' submitting'
 
-                    '''    
-                    if j>1:
-                    continue
-                    '''
+            else:
+                runjob = True
 
-                    print('submitting ',label)
-                    
-                    bash_command('sbatch submit_sherlock%d'%j + ' ' + input_file_name+' '+output_folder_name)
-                    
-                    submit_ct += 1
+            if runjob:
+                print output_folder_name+' len ',0,' submitting'
+
+                print('submitting ',label)                
+                bash_command('sbatch submit_sherlock%d'%j + ' ' + input_file_name+' '+output_folder_name)
             
-                    time.sleep(0.05)
+                submit_ct += 1
+                
+                time.sleep(0.05)
 
     
-            
-     
 
 
 print(submit_ct)
