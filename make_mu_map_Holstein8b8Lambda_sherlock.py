@@ -4,7 +4,7 @@ N = 64
 W = 8.
 
 
-folder = 1
+folder = 6
 
 if folder==1:
     omegas = [0.4,1.2,2.0]

@@ -37,9 +37,9 @@ for i,blist in enumerate(mu_map):
 
       folder = 'output_%d'%i+'_%d'%j+'_%d'%k
 
-      files = os.listdir(dirpath+folder)
-      
+      files = os.listdir(dirpath+folder)      
       dens = []
+      
  
       for myfile in files:
                
@@ -62,7 +62,7 @@ for i,blist in enumerate(mu_map):
               #print myfile
               
       if len(dens)<5:
-        print i,j,k," warning len(dens) ",len(dens)
+        print i,j,k," warning len(dens) ",len(dens), " len files ", len(files)
       
       if len(dens)>=5:
          #print i,j,k,dens

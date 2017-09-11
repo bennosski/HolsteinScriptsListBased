@@ -40,7 +40,6 @@ def get_xsc(folder, myfiles, beta, N, density):
           xtaus.append(xtau)
 
      if xtaus == []:
-          1./0
           print 'missing data'
           return None,None
           
