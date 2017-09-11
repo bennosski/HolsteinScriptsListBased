@@ -28,6 +28,8 @@ def get_xsc(folder, myfiles, beta, N, density):
      
      # no need to divide by N because it is already in signfac in the DQMC code!!!
      for myfile in files:
+          print myfile
+          
           x = fromfile(dirpath+folder+'/'+myfile)
           L = len(x)/N          
                                
@@ -38,6 +40,7 @@ def get_xsc(folder, myfiles, beta, N, density):
           xtaus.append(xtau)
 
      if xtaus == []:
+          1./0
           print 'missing data'
           return None,None
           
@@ -126,7 +129,7 @@ for i,blist in enumerate(dens):
     for k,mu in enumerate(mulist):
       folder = 'output_%d'%i+'_%d'%j+'_%d'%k
 
-      print folder
+      #print folder
       files = os.listdir(dirpath+folder)
 
       x, xstd = get_xsc(folder,files, betas[j], N, dens[i][j][k])
