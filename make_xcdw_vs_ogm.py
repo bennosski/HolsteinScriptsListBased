@@ -139,7 +139,7 @@ def get_xcdw_full(folder, myfiles, beta, N):
      print('len files', len(files))
      if len(files)==0:
           print folder, 'problem!!!!!!!!!!!'
-          
+          return None, None
      
      xs = zeros((len(files), Nk/2+1, Nk/2+1))
 
