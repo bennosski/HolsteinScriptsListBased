@@ -1,7 +1,7 @@
 Norb 1  # number of orbitals per unit cell
 
-Nx   8  # geometry X
-Ny   8  # geometry Y
+Nx   12  # geometry X
+Ny   12  # geometry Y
 
 
 # Consider four unit cells a, b, c, d
@@ -29,8 +29,8 @@ neqlt    200    # number of imag. time steps between equal time measurements.
               # note: if neqlt > L, no equal time measurements will be done
 nuneqlt  0   # number of sweeps between unequal time measurements; 0 to disable. Was 8 by default.
 
-prodBlen 8    # number of B matrices to multiply before QR stuff
-nwraps   8    # number of "wraps" before recomputing G from scratch
+prodBlen 5   # number of B matrices to multiply before QR stuff
+nwraps   5    # number of "wraps" before recomputing G from scratch
 
 nequil   100000 # number of warmup/equilibration sweeps
 nsampl   100000 # number of measurement/sampling sweeps
