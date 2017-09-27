@@ -1,0 +1,88 @@
+from numpy import *
+import subprocess, os, time, sys
+
+##first get a sense of where mu is with sdev
+#apparently mu should be around -lambda*W = -N*g^2/omega^2  where N is the total N
+
+N = load('../N.npy')
+Nx = int(sqrt(N))
+print 'N ',N, ' Nx ',Nx
+
+W = 8.
+
+Us     = load('../Us.npy')
+betas  = load('../betas.npy')
+nequil = load('../nequil.npy')
+nsampl = load('../nsampl.npy')
+mu_map = load('../mu_map.npy')
+
+print shape(mu_map)
+
+dirpath = sys.argv[1]
+
+#raw_input("remember to set L in the file 'input' \n and 5000 measurement sweeps")
+#beta = float(raw_input('input beta: '))
+
+def bash_command(cmd):
+    subprocess.Popen(['/bin/bash', '-c', cmd])
+
+def myreplace(key, rep, label):
+    mystr = """; sed "/""" + key + "/c\\" + rep + "\" temp1" + label + ' > temp2' + label 
+    mystr += '; cp temp2'+label+' '+'temp1'+label
+    return mystr
+
+#y = raw_input('nuneqult = 0!!!!!!!! (y/n)?')
+#if y!='y':
+#    1/0
+
+for i,blist in enumerate(mu_map):
+    U = Us[i]
+    for j,mulist in enumerate(blist):
+      
+        for k,mu in enumerate(mulist):
+             
+            print i,j,k
+
+
+            L = int(round(betas[j]/0.1))
+
+            #if L==8:
+            #    prodBlen = 4
+            #else:
+            #    prodBlen = 8
+            prodBlen = 5
+
+            #neqlt = 0
+            neqlt   =  L
+            
+            #nuneqlt = 0
+            nuneqlt = L
+
+            label = '_%d'%i+'_%d'%j+'_%d'%k
+            
+            input_file_name    = dirpath+'input'+label
+            #output_folder_name = 'output'+label
+            
+            cmd = 'cp input_negU temp1'+label
+
+            cmd += myreplace('U', 'U          %d'%U, label)
+            cmd += myreplace('mu', 'mu          %f'%mu, label)
+            cmd += myreplace('numequaltime','neqlt      %d'%neqlt, label) 
+            cmd += myreplace('nuneqlt','nuneqlt      %d'%nuneqlt, label) 
+            cmd += myreplace('L', 'L          %d'%L, label)
+            cmd += myreplace('prodBlen','prodBlen          %d'%prodBlen, label)
+            cmd += myreplace('nequil', 'nequil          %d'%nequil, label)
+            cmd += myreplace('nsampl', 'nsampl          %d'%nsampl, label)
+            cmd += myreplace('Nx', 'Nx          %d'%Nx, label)
+            cmd += myreplace('Ny', 'Ny          %d'%Nx, label)
+
+            cmd += '; cp temp2'+label+' '+input_file_name
+            cmd += '; rm temp2'+label+'; rm temp1'+label
+
+            bash_command(cmd)
+            
+            time.sleep(0.1)
+            
+
+#save mumap....
+
