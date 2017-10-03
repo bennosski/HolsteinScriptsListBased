@@ -3,7 +3,7 @@
 LSB_JOB_REPORT_MAIL=N
 
 . intel.sh
-cd /nfs/slac/g/simes.mordor/benn/negUhubbard/bin/
+#cd /nfs/slac/g/simes.mordor/benn/negUhubbard/bin/
 bsub -J "l0p5[1-5]" -q simesq -n 1 -o out -e err ./negUhubbard_dqmc $1 $2
 
 

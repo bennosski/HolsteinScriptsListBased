@@ -22,9 +22,8 @@ skip = False
 
 mu_map = load('../mu_map.npy')
 
-#y = raw_input('confirm: did you copy multiple submit to bin directory? (y/n)')
-y = raw_input('confirm: did make changes to multiple_submit.sh to run from scripts dir? (y/n)')
-y = raw_input('confirm: are you running submission in scripts dir?   (y/n)')
+y = raw_input('confirm: are you running from bin directory?            (y/n)')
+y = raw_input('confirm: did you copy multiple submit to bin directory? (y/n)')
 if y!='y':
     1/0
 
@@ -36,8 +35,8 @@ for i,blist in enumerate(mu_map):
             label = '_%d'%i+'_%d'%j+'_%d'%k
             
             
-            input_file_name = '../'+sys.argv[1]+'input'+label
-            output_folder_name = '../'+sys.argv[2]+'output'+label
+            input_file_name = sys.argv[1]+'input'+label
+            output_folder_name = sys.argv[2]+'output'+label
             
             if os.path.exists(output_folder_name):
                 files = glob.glob(output_folder_name+'/*Gtau0_u.dat')
