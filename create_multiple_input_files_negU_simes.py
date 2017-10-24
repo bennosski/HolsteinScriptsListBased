@@ -1,5 +1,6 @@
 from numpy import *
 import subprocess, os, time, sys
+import threading
 
 ##first get a sense of where mu is with sdev
 #apparently mu should be around -lambda*W = -N*g^2/omega^2  where N is the total N
@@ -35,6 +36,13 @@ def myreplace(key, rep, label):
 #if y!='y':
 #    1/0
 
+
+bash_command("mkdir -p "+dirpath)
+
+
+
+cmds = []
+
 for i,blist in enumerate(mu_map):
     U = Us[i]
     for j,mulist in enumerate(blist):
@@ -46,17 +54,17 @@ for i,blist in enumerate(mu_map):
 
             L = int(round(betas[j]/0.1))
 
-            #if L==8:
-            #    prodBlen = 4
-            #else:
-            #    prodBlen = 8
-            prodBlen = 5
+            if L==8:
+                prodBlen = 4
+            else:
+                prodBlen = 8
+            #prodBlen = 5
 
             #neqlt = 0
             neqlt   =  L
             
-            #nuneqlt = 0
-            nuneqlt = L
+            nuneqlt = 0
+            #nuneqlt = L
 
             label = '_%d'%i+'_%d'%j+'_%d'%k
             
@@ -71,6 +79,7 @@ for i,blist in enumerate(mu_map):
             cmd += myreplace('nuneqlt','nuneqlt      %d'%nuneqlt, label) 
             cmd += myreplace('L', 'L          %d'%L, label)
             cmd += myreplace('prodBlen','prodBlen          %d'%prodBlen, label)
+            cmd += myreplace('nwraps','nwraps          %d'%prodBlen, label)
             cmd += myreplace('nequil', 'nequil          %d'%nequil, label)
             cmd += myreplace('nsampl', 'nsampl          %d'%nsampl, label)
             cmd += myreplace('Nx', 'Nx          %d'%Nx, label)
@@ -79,10 +88,61 @@ for i,blist in enumerate(mu_map):
             cmd += '; cp temp2'+label+' '+input_file_name
             cmd += '; rm temp2'+label+'; rm temp1'+label
 
-            bash_command(cmd)
+
+            cmds.append(cmd)
             
-            time.sleep(0.1)
+            #bash_command(cmd)
+            
+            #time.sleep(0.1)
             
 
 #save mumap....
 
+
+
+'''
+def makethread(counter, max_process):
+    thread = threading.Thread(target=makeinputfiles, args=(makethread, counter, max_process))
+    thread.start()
+
+def makeinputfiles(makethread, counter, max_process):
+    proc = subprocess.Popen(['/bin/bash', '-c', cmds[counter]])
+    proc.wait()
+    print 'counter = ',counter
+    if counter+max_process<5:
+        makethread(counter+max_process, max_process)
+
+max_process = 2
+for i in range(max_process):
+    makethread(i, max_process)
+'''
+
+
+'''
+def makethread(start_index, end_index):
+    thread = threading.Thread(target=makeinputfiles, args=(makethread, start_index, end_index))
+    thread.start()
+
+def makeinputfiles(makethread, start_index, end_index):
+    for counter in range(start_index, end_index):
+        proc = subprocess.Popen(['/bin/bash', '-c', cmds[counter]])
+    proc.wait()
+    print 'finished ',start_index,end_index
+
+    if end_index>=len(cmds)-1:
+        return
+
+    di = end_index-start_index
+    start_index = end_index
+    end_index   = min(start_index+di, len(cmds)-1)
+    makethread(start_index, end_index)
+
+makethread(0, 100)   
+'''
+
+start_index = 0
+end_index   = 10
+for counter in range(start_index, end_index):
+    proc = subprocess.Popen(['/bin/bash', '-c', cmds[counter]])
+    proc.wait()
+    print 'counter ',counter

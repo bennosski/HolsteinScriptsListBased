@@ -30,7 +30,7 @@ def get_xsc(folder, myfiles, beta, N, density):
      ct = 0
      xtaus  = []
      
-     # no need to divide by N because it is already in signfac in the DQMC code!!!
+     # no need to divide by N because it is already in signfac in the DQMC code
      for myfile in files: 
           x = fromfile(dirpath+folder+'/'+myfile)
           L = len(x)/N          

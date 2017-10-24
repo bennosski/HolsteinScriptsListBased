@@ -11,8 +11,9 @@ folders = os.listdir(dirpath)
 if not os.path.exists('../results'):
   os.makedirs('../results')
 
-omegas = load('../omegas.npy')
-save('../results/omegas.npy', omegas)
+
+Us = load('../Us.npy')
+save('../results/Us.npy', Us)
 
 betas = load('../betas.npy')
 save('../results/betas.npy', betas)
@@ -37,7 +38,9 @@ for i,blist in enumerate(mu_map):
 
       folder = 'output_%d'%i+'_%d'%j+'_%d'%k
 
-      files = os.listdir(dirpath+folder)      
+      files = []
+      if os.path.exists(dirpath+folder):
+        files = os.listdir(dirpath+folder)      
       dens = []
       
  
