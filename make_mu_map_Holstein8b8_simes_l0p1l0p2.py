@@ -4,7 +4,7 @@ N = 64
 W = 8.
 
 
-folder = 3
+folder = 2
 
 if folder==1:
     omegas = [0.4, 1.2, 2.0, 2.8, 3.6]
@@ -22,7 +22,6 @@ if folder==3: #outputfiles_l0p2
     lamb   = 0.2
 
 
-
 save('../omegas',omegas)
 save('../betas',betas)
 save('../lamb', lamb)
@@ -38,6 +37,10 @@ if folder==1 or folder==2:
             for imu,mu in enumerate(linspace(-lamb*W-5, -lamb*W, 21)):
                 mu_map[iomeg][ibeta].append(mu)
 
+
+if folder==2:
+    mu_map = load('mu_map_interpolatedl0p1_nvsmu.npy')
+                
 if folder==3:
     mu_map = load('mu_map_interpolatedl0p2_nvsmu.npy')
 

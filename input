@@ -1,7 +1,7 @@
 Norb 1  # number of orbitals per unit cell
 
-Nx   12  # geometry X
-Ny   12  # geometry Y
+Nx   8  # geometry X
+Ny   8  # geometry Y
 
 
 # Consider four unit cells a, b, c, d

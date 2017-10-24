@@ -51,18 +51,17 @@ for i,blist in enumerate(mu_map):
 
             L = int(round(betas[j]/0.1))
 
-            #if L==8:
-            #    prodBlen = 4
-            #else:
-            #    prodBlen = 8
-            prodBlen = 5
+            if L==8:
+                prodBlen = 4
+            else:
+                prodBlen = 8
+            #prodBlen = 5
 
             #neqlt = 0
             neqlt   =  L
 
-            
             #nuneqlt = L
-            nuneqlt = 0
+            nuneqlt = L
 
             label = '_%d'%i+'_%d'%j+'_%d'%k
             
