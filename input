@@ -30,7 +30,7 @@ neqlt    200    # number of imag. time steps between equal time measurements.
 nuneqlt  0   # number of sweeps between unequal time measurements; 0 to disable. Was 8 by default.
 
 prodBlen 5   # number of B matrices to multiply before QR stuff
-nwraps   5    # number of "wraps" before recomputing G from scratch
+nwraps   8    # number of "wraps" before recomputing G from scratch
 
 nequil   100000 # number of warmup/equilibration sweeps
 nsampl   100000 # number of measurement/sampling sweeps

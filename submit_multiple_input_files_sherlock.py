@@ -11,7 +11,7 @@ skip = False
 
 mu_map = load('mu_map.npy')
 
-bash_command('cp HolsteinScriptsListBased/make_mu_map.py .')
+#bash_command('cp HolsteinScriptsListBased/make_mu_map.py .')
 
 def get_count(i,j,k):
     return i*d2*d3 + j*d3 + k
