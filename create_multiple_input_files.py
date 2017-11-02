@@ -14,7 +14,9 @@ betas  = load('../betas.npy')
 mu_map = load('../mu_map.npy')
 l      = load('../lamb.npy')
 
-print shape(mu_map)
+print 'len omegas ',len(omegas)
+print 'len betas ',len(betas)
+print 'mu map shape ',shape(mu_map)
 
 
 dirpath = sys.argv[1]
@@ -57,11 +59,10 @@ for i,blist in enumerate(mu_map):
                 prodBlen = 8
             #prodBlen = 5
 
-            #neqlt = 0
             neqlt   =  L
 
+            nuneqlt = 0
             #nuneqlt = L
-            nuneqlt = L
 
             label = '_%d'%i+'_%d'%j+'_%d'%k
             

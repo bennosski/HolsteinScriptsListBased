@@ -1,10 +1,12 @@
 from numpy import *
+import sys
 
 N = 64
 W = 8.
 
 
-folder = 7
+folder = int(sys.argv[1])
+#folder = 7
 
 if folder==1:
     omegas = [0.4,1.2,2.0]
@@ -86,7 +88,7 @@ if folder==7 or folder==8 or folder==9 or folder==10 or folder==11 or folder==12
     for i,omega in enumerate(omegas):
         mu_map.append([])
         for j in range(len(betas)):
-            mu_map[i].append(j)
+            mu_map[i].append([])
 
             mu_list = linspace(-4.0-lamb*W, -lamb*W, 21)
             for k in range(21):
