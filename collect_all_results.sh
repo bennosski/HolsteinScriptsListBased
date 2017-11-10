@@ -10,7 +10,7 @@ read input
 mkdir -p "../results"
 
 python make_dens_vs_ogm.py $1
-#python make_xsc_vs_ogm.py $1
+python make_xsc_vs_ogm.py $1
 #python make_xcdw_vs_ogm.py $1
 
 ###rm auto_checkpoint.txt

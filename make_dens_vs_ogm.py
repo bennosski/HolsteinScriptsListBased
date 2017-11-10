@@ -12,8 +12,11 @@ if not os.path.exists('../results'):
   os.makedirs('../results')
 
 
-Us = load('../Us.npy')
-save('../results/Us.npy', Us)
+#Us = load('../Us.npy')
+#save('../results/Us.npy', Us)
+
+omegas = load('../omegas.npy')
+save('../results/omegas.npy', omegas)
 
 betas = load('../betas.npy')
 save('../results/betas.npy', betas)
@@ -66,7 +69,9 @@ for i,blist in enumerate(mu_map):
               
       if len(dens)<5:
         print i,j,k," warning len(dens) ",len(dens), " len files ", len(files)
-      
+      else:
+        print len(files)
+        
       if len(dens)>=5:
          #print i,j,k,dens
          error = std(dens, ddof=1)/sqrt(len(dens))
