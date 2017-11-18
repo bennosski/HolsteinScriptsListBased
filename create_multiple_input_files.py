@@ -14,10 +14,12 @@ betas  = load('../betas.npy')
 mu_map = load('../mu_map.npy')
 l      = load('../lamb.npy')
 
+nsampl = load('../nsampl.npy')
+nequil = load('../nequil.npy')
+
 print 'len omegas ',len(omegas)
 print 'len betas ',len(betas)
 print 'mu map shape ',shape(mu_map)
-
 
 dirpath = sys.argv[1]
 
@@ -61,8 +63,8 @@ for i,blist in enumerate(mu_map):
 
             neqlt   =  L
 
-            #nuneqlt = 0
-            nuneqlt = L
+            nuneqlt = 0
+            #nuneqlt = L
 
             label = '_%d'%i+'_%d'%j+'_%d'%k
             
@@ -82,9 +84,11 @@ for i,blist in enumerate(mu_map):
             cmd += myreplace('between equal','neqlt    %d'%neqlt+'   # number of imag. time steps between equal time measurements.',label) 
             cmd += myreplace('nuneqlt','nuneqlt    %d'%nuneqlt+'   # number of sweeps between unequal time measurements; 0 to diable',label) 
 
+            cmd += myreplace('nequil','nequil %d'%nequil+'    # number of warmup/equilibration sweeps',label)
+            cmd += myreplace('nsampl','nsampl %d'%nsampl+'    # number of measurement/sampling sweeps',label)
+            
             #cmd += '; cp temp2'+label+' '+'temp1'+label
             #cmd += """; sed "//c\L      %d"""%L+""" # sets beta (num imag time steps)" temp1"""+label+' > temp2'+label
-
 
             cmd += '; cp temp2'+label+' '+'temp1'+label
             cmd += """; sed "/phonon_block_box_width/c\phonon_block_box_width %1.2f"""%bw+""" # above for block updates" temp1"""+label+' > temp2'+label

@@ -25,7 +25,7 @@ if folder==4:
     betas  = [0.8, 1.6, 2.4, 4.8, 8.0, 12.0, 16.0]
     lamb   = 0.6
 
-
+    
 if folder==5:
     omegas = [2.8, 3.6]
     betas  = [0.8, 1.6, 2.4, 4.8, 8.0, 12.0, 16.0]
@@ -87,7 +87,19 @@ if folder==18:
     lamb   = 0.6
 
     
-    
+if folder==19:
+    omegas = [0.4, 1.2, 2.0, 2.8, 3.6, 6.8]
+    betas  = [0.8, 1.6, 2.4, 4.8, 8.0, 12.0, 16.0]
+    lamb   = 0.55
+    nsampl = 2000
+    nequil = 2000
+
+try:
+    save('../nsampl', nsampl)
+    save('../nequil', nequil)
+except:
+    print 'nsampl and nequil not defined'
+
 save('../omegas',omegas)
 save('../betas',betas)
 save('../lamb', lamb)
@@ -109,7 +121,7 @@ if folder==6:
     mu_map = load('../mu_map_interpolated_l0p6_8b8_omega2p83p6.npy')
 
     
-if folder==7 or folder==8 or folder==9 or folder==10 or folder==11 or folder==12:
+if folder==7 or folder==8 or folder==9 or folder==10 or folder==11 or folder==12 or folder==19:
     mu_map = []
     for i,omega in enumerate(omegas):
         mu_map.append([])
