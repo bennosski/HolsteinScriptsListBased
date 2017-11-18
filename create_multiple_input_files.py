@@ -1,5 +1,6 @@
 from numpy import *
 import subprocess, os, time, sys
+import glob as glob
 
 ##first get a sense of where mu is with sdev
 #apparently mu should be around -lambda*W = -N*g^2/omega^2  where N is the total N
@@ -16,6 +17,7 @@ l      = load('../lamb.npy')
 
 nsampl = load('../nsampl.npy')
 nequil = load('../nequil.npy')
+uneq_meas = load('../uneq_meas.npy')
 
 print 'len omegas ',len(omegas)
 print 'len betas ',len(betas)
@@ -37,6 +39,13 @@ def myreplace(key, rep, label):
 y = raw_input('nuneqult = 0!!!!!!!! (y/n)?')
 if y!='y':
     1/0
+
+y = raw_input('DID YOU CLEAR DIR? THIS CODE DOES NOT OVERWRITE')
+if y!='y':
+    1/0
+
+
+files = glob.glob(dirpath+'input*')
 
 for i,blist in enumerate(mu_map):
 #for i in range(2):
@@ -63,43 +72,54 @@ for i,blist in enumerate(mu_map):
 
             neqlt   =  L
 
-            nuneqlt = 0
-            #nuneqlt = L
+            if uneq_meas:
+                nuneqlt = L
+            else:
+                nuneqlt = 0
+
+            print 'nuneqlt ',nuneqlt
 
             label = '_%d'%i+'_%d'%j+'_%d'%k
+
+            flag = False
+            for myfile in files:
+                if label in myfile:
+                    flag = True
+
+            if not flag:
             
-            input_file_name    = dirpath+'input'+label
-            #output_folder_name = 'output'+label
-            
-            cmd = 'cp input temp1'+label
-            cmd += """; sed "/chemical/c\mu %1.15f"""%mu+""" # chemical potential" temp1"""+label+' > temp2'+label
-            cmd += '; cp temp2'+label+' '+'temp1'+label
-            cmd += """; sed "/phonon coupling/c\phonon_g %1.15f"""%g+""" # phonon coupling" temp1"""+label+' > temp2'+label
+                input_file_name    = dirpath+'input'+label
+                #output_folder_name = 'output'+label
 
-            cmd += '; cp temp2'+label+' '+'temp1'+label
-            cmd += """; sed "/beta/c\L      %d"""%L+""" # sets beta (num imag time steps)" temp1"""+label+' > temp2'+label
-            cmd += '; cp temp2'+label+' '+'temp1'+label
-            cmd += """; sed "/prodBlen/c\prodBlen  %d"""%prodBlen+""" # number of B matrices to multiply before QR stuff" temp1"""+label+' > temp2'+label
+                cmd = 'cp input temp1'+label
+                cmd += """; sed "/chemical/c\mu %1.15f"""%mu+""" # chemical potential" temp1"""+label+' > temp2'+label
+                cmd += '; cp temp2'+label+' '+'temp1'+label
+                cmd += """; sed "/phonon coupling/c\phonon_g %1.15f"""%g+""" # phonon coupling" temp1"""+label+' > temp2'+label
 
-            cmd += myreplace('between equal','neqlt    %d'%neqlt+'   # number of imag. time steps between equal time measurements.',label) 
-            cmd += myreplace('nuneqlt','nuneqlt    %d'%nuneqlt+'   # number of sweeps between unequal time measurements; 0 to diable',label) 
+                cmd += '; cp temp2'+label+' '+'temp1'+label
+                cmd += """; sed "/beta/c\L      %d"""%L+""" # sets beta (num imag time steps)" temp1"""+label+' > temp2'+label
+                cmd += '; cp temp2'+label+' '+'temp1'+label
+                cmd += """; sed "/prodBlen/c\prodBlen  %d"""%prodBlen+""" # number of B matrices to multiply before QR stuff" temp1"""+label+' > temp2'+label
 
-            cmd += myreplace('nequil','nequil %d'%nequil+'    # number of warmup/equilibration sweeps',label)
-            cmd += myreplace('nsampl','nsampl %d'%nsampl+'    # number of measurement/sampling sweeps',label)
-            
-            #cmd += '; cp temp2'+label+' '+'temp1'+label
-            #cmd += """; sed "//c\L      %d"""%L+""" # sets beta (num imag time steps)" temp1"""+label+' > temp2'+label
+                cmd += myreplace('between equal','neqlt    %d'%neqlt+'   # number of imag. time steps between equal time measurements.',label) 
+                cmd += myreplace('nuneqlt','nuneqlt    %d'%nuneqlt+'   # number of sweeps between unequal time measurements; 0 to diable',label) 
 
-            cmd += '; cp temp2'+label+' '+'temp1'+label
-            cmd += """; sed "/phonon_block_box_width/c\phonon_block_box_width %1.2f"""%bw+""" # above for block updates" temp1"""+label+' > temp2'+label
-            cmd += '; cp temp2'+label+' '+'temp1'+label
-            cmd += """; sed "/phonon_omega/c\phonon_omega %1.3f"""%omega+""" # phonon coupling" temp1"""+label+' > temp2'+label
-            cmd += '; cp temp2'+label+' '+input_file_name
-            cmd += '; rm temp2'+label+'; rm temp1'+label
+                cmd += myreplace('nequil','nequil %d'%nequil+'    # number of warmup/equilibration sweeps',label)
+                cmd += myreplace('nsampl','nsampl %d'%nsampl+'    # number of measurement/sampling sweeps',label)
 
-            bash_command(cmd)
-            
-            time.sleep(0.1)
+                #cmd += '; cp temp2'+label+' '+'temp1'+label
+                #cmd += """; sed "//c\L      %d"""%L+""" # sets beta (num imag time steps)" temp1"""+label+' > temp2'+label
+
+                cmd += '; cp temp2'+label+' '+'temp1'+label
+                cmd += """; sed "/phonon_block_box_width/c\phonon_block_box_width %1.2f"""%bw+""" # above for block updates" temp1"""+label+' > temp2'+label
+                cmd += '; cp temp2'+label+' '+'temp1'+label
+                cmd += """; sed "/phonon_omega/c\phonon_omega %1.3f"""%omega+""" # phonon coupling" temp1"""+label+' > temp2'+label
+                cmd += '; cp temp2'+label+' '+input_file_name
+                cmd += '; rm temp2'+label+'; rm temp1'+label
+
+                bash_command(cmd)
+
+                time.sleep(0.1)
             
 
 #save mumap....

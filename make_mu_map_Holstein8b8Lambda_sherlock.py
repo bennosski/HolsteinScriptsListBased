@@ -93,10 +93,12 @@ if folder==19:
     lamb   = 0.55
     nsampl = 2000
     nequil = 2000
-
+    uneq_meas = False
+    
 try:
     save('../nsampl', nsampl)
     save('../nequil', nequil)
+    save('../nueq_meas', uneq_meas)
 except:
     print 'nsampl and nequil not defined'
 
