@@ -101,14 +101,14 @@ if folder==20:
     nsampl = 100000
     nequil = 100000
     uneq_meas = True
-if folder==21: # running now nvsmu_l0p45
+if folder==21: 
     omegas = [0.4, 1.2, 2.0, 2.8, 3.6, 6.8]
     betas  = [0.8, 1.6, 2.4, 4.8, 8.0, 12.0, 16.0]
     lamb   = 0.45
     nsampl = 2000
     nequil = 2000
     uneq_meas = False
-if folder==22: # not run yet
+if folder==22: 
     omegas = [0.4, 1.2, 2.0, 2.8, 3.6, 6.8]
     betas  = [0.8, 1.6, 2.4, 4.8, 8.0, 12.0, 16.0]
     lamb   = 0.45
@@ -171,7 +171,9 @@ if folder==18:
 
 if folder==20:
     mu_map = load('mu_map_interpolated_nvsmu_l0p55.npy')
-    
+if folder==22:
+    mu_map = load('mu_map_interpolated_nvsmu_l0p45.npy')
+
     
 save('../mu_map', mu_map)
 print 'done saving mu map'
