@@ -155,7 +155,7 @@ def loadDataCombined2(folders, xcdw_orders, xcdw_flips):
 
 #lamb = 'nvsmu_l0p55'
 #lamb = 'nvsmu_l0p45'
-lamb = 'nvsmu_l0p35'
+#lamb = 'nvsmu_l0p35'
 
 figs = ''
 
@@ -195,7 +195,8 @@ for iomeg,blist in enumerate(mu_map):
                 
 #save('mu_map_interpolated_nvsmu_l0p55.npy', mu_map_interpolated)
 #save('mu_map_interpolated_nvsmu_l0p45.npy', mu_map_interpolated)
-save('mu_map_interpolated_nvsmu_l0p35.npy', mu_map_interpolated)
+#save('mu_map_interpolated_nvsmu_l0p35.npy', mu_map_interpolated)
+save('mu_map_interpolated_nvsmu_l0p25.npy', mu_map_interpolated)
 print mu_map_interpolated
 print shape(mu_map_interpolated)
 

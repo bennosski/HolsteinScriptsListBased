@@ -129,6 +129,21 @@ if folder==24:
     nsampl = 100000
     nequil = 100000
     uneq_meas = True
+if folder==25: 
+    omegas = [0.4, 1.2, 2.0, 2.8, 3.6, 6.8]
+    betas  = [0.8, 1.6, 2.4, 4.8, 8.0, 12.0, 16.0]
+    lamb   = 0.25
+    nsampl = 2000
+    nequil = 2000
+    uneq_meas = False
+if folder==26: 
+    omegas = [0.4, 1.2, 2.0, 2.8, 3.6, 6.8]
+    betas  = [0.8, 1.6, 2.4, 4.8, 8.0, 12.0, 16.0]
+    lamb   = 0.25
+    nsampl = 100000
+    nequil = 100000
+    uneq_meas = True
+
 
     
 try:
@@ -159,7 +174,7 @@ if folder==6:
     mu_map = load('../mu_map_interpolated_l0p6_8b8_omega2p83p6.npy')
 
     
-if folder==7 or folder==8 or folder==9 or folder==10 or folder==11 or folder==12 or folder==19 or folder==21 or folder==23:
+if folder==7 or folder==8 or folder==9 or folder==10 or folder==11 or folder==12 or folder==19 or folder==21 or folder==23 or folder==25:
     mu_map = []
     for i,omega in enumerate(omegas):
         mu_map.append([])
@@ -189,6 +204,8 @@ if folder==22:
     mu_map = load('mu_map_interpolated_nvsmu_l0p45.npy')
 if folder==24:
     mu_map = load('mu_map_interpolated_nvsmu_l0p35.npy')
+if folder==26:
+    mu_map = load('mu_map_interpolated_nvsmu_l0p25.npy')
 
     
 save('../mu_map', mu_map)
