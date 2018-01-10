@@ -36,6 +36,7 @@ def myreplace(key, rep, label):
     mystr += """; sed "/""" + key + "/c\\" + rep + "\" temp1" + label + ' > temp2' + label 
     return mystr
 
+'''
 y = raw_input('nuneqult = 0!!!!!!!! (y/n)?')
 if y!='y':
     1/0
@@ -43,7 +44,7 @@ if y!='y':
 y = raw_input('DID YOU CLEAR DIR? THIS CODE DOES NOT OVERWRITE')
 if y!='y':
     1/0
-
+'''
 
 files = glob.glob(dirpath+'input*')
 
