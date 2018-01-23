@@ -7,4 +7,4 @@ git add -u
 git status
 git commit -m "update"
 #git push -u origin master
-git push -u orign master:auto
+git push -u origin master:auto
