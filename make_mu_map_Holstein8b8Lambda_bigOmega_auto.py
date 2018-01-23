@@ -12,11 +12,16 @@ def main(folder, lamb_str):
     #lamb_str = sys.argv[2]
     i1 = lamb_str.index('p')
     lamb = float(lamb_str[i1+1:])
-
-    y = raw_input("assert lamb = "+lamb_str)
+    lamb = lamb * 1. * 10.0**(-len(lamb_str[i1+1:]))
+    
+    y = raw_input("\n\ncheck lamb = "+lamb_str)
+    if y!='y':
+        quit()
+    y = raw_input("\n\ncheck lamb = %f"%lamb)
     if y!='y':
         quit()
 
+        
     omegas = [10.0, 15.0]
     betas  = [0.8, 1.6, 2.4, 4.8, 8.0, 12.0, 16.0]
 

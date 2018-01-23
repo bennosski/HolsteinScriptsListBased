@@ -18,12 +18,14 @@ def confirm():
 if not os.path.exists('../results/'):
     os.mkdir('../results/')
 
-folder = int(sys.argv[1])
-lamb_str = sys.argv[2]
+# lamb_str  e.g. l0p45
 
-print "folder number = ",folder
+folder = 2
+lamb_str = sys.argv[1]
+
 print "lambda = ",lamb_str
 confirm()
+
 
 
 os.mkdir('../inputfiles_'+lamb_str+'_bigOmega/')
@@ -39,6 +41,7 @@ ia.main('mu_map_interpolated_nvsmu_'+lamb_str+'_bigOmega.npy')
 # make the new mu map
 mmm.main(folder, lamb_str)
 
+# make the new input files
 bash_command('python create_multiple_input_files.py ../inputfiles_'+lamb_str+'_bigOmega/')
 
 print 'done'
